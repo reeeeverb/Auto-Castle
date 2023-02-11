@@ -33,11 +33,14 @@ class Chessboard(Widget):
         self.white_capture = []
         self.black_capture = []
         self.move = 0
+        self.forward = "WHITE"
 
     def on_touch_down(self, touch):
         if self.first:
             self.first = False
             self.reset_board()
+        self.parent.w_king1.inCheck()
+        self.parent.b_king1.inCheck()
         if self.collide_point(*touch.pos):
             xpos = touch.pos[0]-self.pos[0]
             ypos = touch.pos[1]-self.pos[1]
@@ -70,7 +73,7 @@ class Chessboard(Widget):
             self.marker_present=False
 
     def generate_moves(self,square,show_moves=False):
-        forward = "WHITE"
+        forward = self.forward
         piece = self.piece[square[2]]
         color = self.color[square[2]]
         out = []
@@ -639,6 +642,142 @@ class King(Widget):
     visible = NumericProperty(0)
     p_size = NumericProperty(0)
     first = True
+
+    def inCheck(self):
+        color = self.parent.color
+        piece = self.parent.piece
+        names = self.parent.names
+
+        king_row = self.position_row
+        king_col = self.position_col
+
+        # From above check
+        if king_row < 7:
+            temp_row = king_row+1
+            temp_pos = temp_row*8+king_col
+            while temp_row < 7 and piece[temp_pos] == "EMPTY":
+                temp_row+=1;
+                temp_pos+=8;
+            hit_p = piece[temp_pos]
+            hit_c = color[temp_pos]
+            print("From front: ",hit_c, hit_p)
+            if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
+                if (hit_p == "ROOK" or hit_p == "QUEEN"):
+                    print("In check")
+
+        # From below check
+        if king_row > 0:
+            temp_row = king_row-1
+            temp_pos = temp_row*8+king_col
+            while temp_row > 0 and piece[temp_pos] == "EMPTY":
+                temp_row-=1;
+                temp_pos-=8;
+            hit_p = piece[temp_pos]
+            hit_c = color[temp_pos]
+            print("From back: ",hit_c, hit_p)
+            if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
+                if (hit_p == "ROOK" or hit_p == "QUEEN"):
+                    print("In check")
+
+        # From right check
+        if king_col < 7:
+            temp_col = king_col+1
+            temp_pos = king_row*8+temp_col
+            while temp_col < 7 and piece[temp_pos] == "EMPTY":
+                temp_col+=1;
+                temp_pos+=1;
+            hit_p = piece[temp_pos]
+            hit_c = color[temp_pos]
+            print("From right: ",hit_c, hit_p)
+            if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
+                if (hit_p == "ROOK" or hit_p == "QUEEN"):
+                    print("In check")
+
+        # From left check
+        if king_col > 0:
+            temp_col = king_col-1
+            temp_pos = king_row*8+temp_col
+            while temp_col > 0 and piece[temp_pos] == "EMPTY":
+                temp_col-=1;
+                temp_pos-=1;
+            hit_p = piece[temp_pos]
+            hit_c = color[temp_pos]
+            print("From left: ",hit_c, hit_p)
+            if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
+                if (hit_p == "ROOK" or hit_p == "QUEEN"):
+                    print("In check")
+
+        # From diagonal top right check
+        if king_row < 7 and king_col < 7:
+            temp_count = 1
+            temp_row = king_row+1
+            temp_col = king_col+1
+            temp_pos = temp_row*8+temp_col
+            while temp_col < 7 and temp_row < 7 and piece[temp_pos] == "EMPTY":
+                temp_col+=1;
+                temp_row+=1;
+                temp_pos+=9;
+                temp_count += 1
+            hit_p = piece[temp_pos]
+            hit_c = color[temp_pos]
+            print("From upper right: ",hit_c, hit_p)
+            if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
+                if (hit_p == "BISHOP" or hit_p == "QUEEN"):
+                    print("In check")
+                elif (temp_count == 1 and hit_p == "PAWN" and self.parent.forward != hit_c):
+                    print("Pawn Check")
+
+        # From diagonal top left check
+        if king_row < 7 and king_col > 0:
+            temp_count = 0
+            temp_row = king_row+1
+            temp_col = king_col-1
+            temp_pos = temp_row*8+temp_col
+            while temp_col > 0 and temp_row < 7 and piece[temp_pos] == "EMPTY":
+                temp_col-=1;
+                temp_row+=1;
+                temp_pos+=7;
+                temp_count+=1
+            hit_p = piece[temp_pos]
+            hit_c = color[temp_pos]
+            print("From upper left: ",hit_c, hit_p)
+            if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
+                if (hit_p == "BISHOP" or hit_p == "QUEEN"):
+                    print("In check")
+                elif (temp_count == 1 and hit_p == "PAWN" and self.parent.forward == hit_c):
+                    print("Pawn Check")
+
+        # From diagonal bottom right check
+        if king_row > 0 and king_col < 7:
+            temp_row = king_row-1
+            temp_col = king_col+1
+            temp_pos = temp_row*8+temp_col
+            while temp_col < 7 and temp_row > 0 and piece[temp_pos] == "EMPTY":
+                temp_col+=1;
+                temp_row-=1;
+                temp_pos-=7;
+            hit_p = piece[temp_pos]
+            hit_c = color[temp_pos]
+            print("From lower right: ",hit_c, hit_p)
+            if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
+                if (hit_p == "BISHOP" or hit_p == "QUEEN"):
+                    print("In check")
+
+        # From diagonal bottom left check
+        if king_row > 0 and king_col > 0:
+            temp_row = king_row-1
+            temp_col = king_col-1
+            temp_pos = temp_row*8+temp_col
+            while temp_col > 0 and temp_row > 0 and piece[temp_pos] == "EMPTY":
+                temp_col-=1;
+                temp_row-=1;
+                temp_pos-=9;
+            hit_p = piece[temp_pos]
+            hit_c = color[temp_pos]
+            print("From lower left: ",hit_c, hit_p)
+            if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
+                if (hit_p == "BISHOP" or hit_p == "QUEEN"):
+                    print("In check")
 
     def makeVisible(self):
         self.visible = 1
