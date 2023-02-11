@@ -1,0 +1,205 @@
+#:kivy 1.0.9
+#:import win kivy.core.window
+
+<ChessGame>:    
+    w_pawn0 : w_pawn0
+    w_pawn1 : w_pawn1
+    w_pawn2 : w_pawn2
+    w_pawn3 : w_pawn3
+    w_pawn4 : w_pawn4
+    w_pawn5 : w_pawn5
+    w_pawn6 : w_pawn6
+    w_pawn7 : w_pawn7
+    b_pawn0 : b_pawn0
+    b_pawn1 : b_pawn1
+    b_pawn2 : b_pawn2
+    b_pawn3 : b_pawn3
+    b_pawn4 : b_pawn4
+    b_pawn5 : b_pawn5
+    b_pawn6 : b_pawn6
+    b_pawn7 : b_pawn7
+
+    w_knight1 : w_knight1
+    w_knight2 : w_knight2
+
+    b_knight1 : b_knight1
+    b_knight2 : b_knight2
+
+    w_bishop1: w_bishop1
+    w_bishop2 : w_bishop2
+
+    b_bishop1 : b_bishop1
+    b_bishop2 : b_bishop2
+
+    w_rook1 : w_rook1
+    w_rook2 : w_rook2
+
+    b_rook1 : b_rook1
+    b_rook2 : b_rook2
+
+    w_queen1 : w_queen1
+
+    b_queen1 : b_queen1
+
+    w_king1 : w_king1
+
+    b_king1 : b_king1
+
+    s_width : win.Window.width
+    s_height : win.Window.height
+    p_size: win.Window.width*.125
+
+    Chessboard:
+        id: main_board
+        center: self.parent.center
+        Pawn:
+            id: w_pawn0
+        Pawn:
+            id: w_pawn1
+        Pawn:
+            id: w_pawn2
+        Pawn:
+            id: w_pawn3
+        Pawn:
+            id: w_pawn4
+        Pawn:
+            id: w_pawn5
+        Pawn:
+            id: w_pawn6
+        Pawn:
+            id: w_pawn7
+        Pawn:
+            id: b_pawn0
+            white: 0
+        Pawn:
+            id: b_pawn1
+            white: 0
+        Pawn:
+            id: b_pawn2
+            white: 0
+        Pawn:
+            id: b_pawn3
+            white: 0
+        Pawn:
+            id: b_pawn4
+            white: 0
+        Pawn:
+            id: b_pawn5
+            white: 0
+        Pawn:
+            id: b_pawn6
+            white: 0
+        Pawn:
+            id: b_pawn7
+            white: 0
+
+        Knight:
+            id: w_knight1
+        Knight:
+            id: w_knight2
+        Knight:
+            id: b_knight1
+            white: 0
+        Knight:
+            id: b_knight2
+            white: 0
+
+        Bishop:
+            id: w_bishop1
+        Bishop:
+            id: w_bishop2
+        Bishop:
+            id: b_bishop1
+            white: 0
+        Bishop:
+            id: b_bishop2
+            white: 0
+
+        Rook:
+            id: w_rook1
+        Rook:
+            id: w_rook2
+        Rook:
+            id: b_rook1
+            white: 0
+        Rook:
+            id: b_rook2
+            white: 0
+
+        Queen:
+            id: w_queen1
+        Queen:
+            id: b_queen1
+            white: 0
+
+        King:
+            id: w_king1
+        King:
+            id: b_king1
+            white: 0
+<Chessboard>:
+    p_size: self.width*.125
+    size : self.parent.s_height, self.parent.s_height
+    #size : self.parent.s_width, self.parent.s_width
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'board2.png'
+
+<Pawn>:
+    p_size : self.parent.width*.125
+    canvas:
+        Rectangle:
+            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            size: self.p_size, self.p_size if self.visible == 1 else 0
+            source: 'chess-pieces/white/pawn.png' if self.white == 1 else 'chess-pieces/black/pawn1.png'
+
+<Knight>:
+    p_size : self.parent.width*.125
+    canvas:
+        Rectangle:
+            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            size: self.p_size, self.p_size if self.visible == 1 else 0
+            source: 'chess-pieces/white/knight1.png' if self.white == 1 else 'chess-pieces/black/knight1.png'
+    
+<Bishop>:
+    p_size : self.parent.width*.125
+    canvas:
+        Rectangle:
+            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            size: self.p_size, self.p_size if self.visible == 1 else 0
+            source: 'chess-pieces/white/bishop1.png' if self.white == 1 else 'chess-pieces/black/bishop1.png'
+
+<Rook>:
+    p_size : self.parent.width*.125
+    canvas:
+        Rectangle:
+            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            size: self.p_size, self.p_size if self.visible == 1 else 0
+            source: 'chess-pieces/white/rook1.png' if self.white == 1 else 'chess-pieces/black/rook1.png'
+
+<Queen>:
+    p_size : self.parent.width*.125
+    canvas:
+        Rectangle:
+            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            size: self.p_size, self.p_size if self.visible == 1 else 0
+            source: 'chess-pieces/white/queen1.png' if self.white == 1 else 'chess-pieces/black/queen1.png'
+
+<King>:
+    p_size : self.parent.width*.125
+    canvas:
+        Rectangle:
+            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            size: self.p_size, self.p_size if self.visible == 1 else 0
+            source: 'chess-pieces/white/king1.png' if self.white == 1 else 'chess-pieces/black/king1.png'
+
+<Marker>:
+    p_size: self.parent.width*.125
+    canvas:
+        Rectangle: 
+            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            size: self.p_size, self.p_size if self.visible == 1 else 0
+            source: 'chess-pieces/red-circle.png'
+            
