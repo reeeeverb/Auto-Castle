@@ -778,6 +778,52 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
+        # Knight checks
+        if self.white == 1:
+            temp_c = "WHITE"
+        else:
+            temp_c = "BLACK"
+        if king_row < 7 and king_col > 1:
+            temp_col=king_col-2
+            temp_row=king_row+1
+            temp_pos = temp_row*8+temp_col
+            if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
+                print("Check dectected, knight at ", temp_pos)
+
+        if king_row < 7 and king_col < 6:
+            temp_col=king_col+2
+            temp_row=king_row+1
+            temp_pos = temp_row*8+temp_col
+            if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
+                print("Check dectected, knight at ", temp_pos)
+
+        if king_row > 0 and king_col > 1:
+            temp_col=king_col-2
+            temp_row=king_row-1
+            temp_pos = temp_row*8+temp_col
+            if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
+                print("Check dectected, knight at ", temp_pos)
+
+        if king_row > 0 and king_col < 6:
+            temp_col=king_col+2
+            temp_row=king_row-1
+            temp_pos = temp_row*8+temp_col
+            if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
+                print("Check dectected, knight at ", temp_pos)
+
+        if king_row > 1 and king_col < 7:
+            temp_col=king_col+1
+            temp_row=king_row-2
+            temp_pos = temp_row*8+temp_col
+            if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
+                print("Check dectected, knight at ", temp_pos)
+
+        if king_row > 1 and king_col > 0:
+            temp_col=king_col-1
+            temp_row=king_row-2
+            temp_pos = temp_row*8+temp_col
+            if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
+                print("Check dectected, knight at ", temp_pos)
 
     def makeVisible(self):
         self.visible = 1
