@@ -825,6 +825,20 @@ class King(Widget):
             if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
                 print("Check dectected, knight at ", temp_pos)
 
+        if king_row < 6 and king_col > 0:
+            temp_col=king_col-1
+            temp_row=king_row+2
+            temp_pos = temp_row*8+temp_col
+            if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
+                print("Check dectected, knight at ", temp_pos)
+
+        if king_row < 6 and king_col < 7:
+            temp_col=king_col+1
+            temp_row=king_row+2
+            temp_pos = temp_row*8+temp_col
+            if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
+                print("Check dectected, knight at ", temp_pos)
+
     def makeVisible(self):
         self.visible = 1
         self.parent.color[self.position_row*8+self.position_col] = "WHITE" if self.white == 1 else "BLACK"
