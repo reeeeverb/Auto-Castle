@@ -96,7 +96,6 @@ class Chessboard(Widget):
                     else:
                         out.append(square[2]+7)
                 if square[1] != 7 and self.piece[square[2]+9] != "EMPTY" and color != self.color[square[2]+9]:
-                    print("HIT")
                     if show_moves == True:
                         self.show_moves(square[0]+1,square[1]+1)
                     else:
@@ -915,6 +914,8 @@ class Pawn(Widget):
         else:
             self.en_passantable = False
 
+        diag_move = True if self.position_col != col else False
+
         self.position_col = col
         self.position_row = row
         
@@ -922,9 +923,9 @@ class Pawn(Widget):
 
         if (self.parent.piece[self.position_row*8+self.position_col]) != "EMPTY":
             self.parent.names[self.position_row*8+self.position_col].makeNotVisible()
-        if (self.parent.piece[temp_pos-8] == "PAWN" and self.parent.names[temp_pos-8].en_passantable_move == self.parent.move):
+        if (diag_move and self.parent.piece[temp_pos-8] == "PAWN" and self.parent.names[temp_pos-8].en_passantable_move == self.parent.move):
             self.parent.names[temp_pos-8].makeNotVisible()
-        if (self.parent.piece[temp_pos+8] == "PAWN" and self.parent.names[temp_pos+8].en_passantable_move == self.parent.move):
+        if (diag_move and self.parent.piece[temp_pos+8] == "PAWN" and self.parent.names[temp_pos+8].en_passantable_move == self.parent.move):
             self.parent.names[temp_pos+8].makeNotVisible()
         self.parent.names[self.position_row*8+self.position_col] = self
         
