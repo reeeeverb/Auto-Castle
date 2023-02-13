@@ -309,7 +309,21 @@ class Chessboard(Widget):
                 t_square0 += 1
                 t_tracker += 8
         if piece == "KING":
-            print(color)
+            # Check for castling
+            if self.names[square[2]].castleable:
+                if self.piece[square[2]-4] == "ROOK" and self.names[square[2]-4].castleable:
+                    if self.piece[square[2]-3] == "EMPTY" and self.piece[square[2]-2] == "EMPTY" and self.piece[square[2]-1] == "EMPTY":
+                        if show_moves:
+                            self.show_moves(square[0],square[1]-2)
+                        else:
+                            out.append(square[2]-2)
+                if self.piece[square[2]+3] == "ROOK" and self.names[square[2]+3].castleable:
+                    if self.piece[square[2]+2] == "EMPTY" and self.piece[square[2]+1] == "EMPTY":
+                        if show_moves:
+                            self.show_moves(square[0],square[1]+2)
+                        else:
+                            out.append(square[2]+2)
+
             if square[1] < 7 and self.color[square[2]+1] != color:
                 if show_moves:
                     self.show_moves(square[0],square[1]+1)
@@ -395,10 +409,10 @@ class Chessboard(Widget):
         self.parent.w_rook2.set(0,7)
         self.parent.w_rook2.makeVisible()
 
-        self.parent.w_queen1.set(0,4)
+        self.parent.w_queen1.set(0,3)
         self.parent.w_queen1.makeVisible()
 
-        self.parent.w_king1.set(0,3)
+        self.parent.w_king1.set(0,4)
         self.parent.w_king1.makeVisible()
 
         self.parent.b_pawn0.set(6,0)
@@ -433,10 +447,10 @@ class Chessboard(Widget):
         self.parent.b_rook2.set(7,7)
         self.parent.b_rook2.makeVisible()
 
-        self.parent.b_queen1.set(7,4)
+        self.parent.b_queen1.set(7,3)
         self.parent.b_queen1.makeVisible()
 
-        self.parent.b_king1.set(7,3)
+        self.parent.b_king1.set(7,4)
         self.parent.b_king1.makeVisible()
 
     def square_pos(self,x,y):
@@ -550,6 +564,7 @@ class Rook(Widget):
     white = NumericProperty(1)
     visible = NumericProperty(0)
     p_size = NumericProperty(0)
+    castleable = ObjectProperty(True)
     first = True
 
     def makeVisible(self):
@@ -566,6 +581,10 @@ class Rook(Widget):
         self.parent.piece[self.position_row*8+self.position_col] = "EMPTY"
 
     def set(self, row, col):
+        if (self.parent.move == 0):
+            self.castleable = True
+        else:
+            self.castleable = False
         if not self.first:
             self.parent.names[self.position_row*8+self.position_col] = "EMPTY"
             self.parent.piece[self.position_row*8+self.position_col] = "EMPTY"
@@ -640,6 +659,7 @@ class King(Widget):
     white = NumericProperty(1)
     visible = NumericProperty(0)
     p_size = NumericProperty(0)
+    castleable = ObjectProperty(True)
     first = True
 
     def inCheck(self):
@@ -861,8 +881,24 @@ class King(Widget):
             self.parent.piece[self.position_row*8+self.position_col] = "EMPTY"
             self.parent.color[self.position_row*8+self.position_col] = "EMPTY"
 
+        if self.position_col == 4 and col == 2:
+            if (self.white == 1 and self.parent.forward == "WHITE") or (self.white == 0 and self.parent.forward == "BLACK"): 
+                self.parent.names[0].set(0,3)
+            else:
+                self.parent.names[56].set(7,3)
+        elif self.position_col == 4 and col == 6:
+            if (self.white == 1 and self.parent.forward == "WHITE") or (self.white == 0 and self.parent.forward == "BLACK"): 
+                self.parent.names[7].set(0,5)
+            else:
+                self.parent.names[56].set(7,5)
+
         self.position_col = col
         self.position_row = row
+
+        if self.parent.move == 0:
+            self.castleable = True
+        else:
+            self.castleable = False
 
         if (self.parent.piece[self.position_row*8+self.position_col]) != "EMPTY":
             self.parent.names[self.position_row*8+self.position_col].makeNotVisible()

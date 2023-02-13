@@ -5,6 +5,6 @@
 - Check, checkmate, etc
   - Checkmate still needed
     - legal moves array?
-  - Check form other kings
+  - Check from other kings
 - Stalemate
 - Timers
