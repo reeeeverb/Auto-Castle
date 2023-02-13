@@ -724,7 +724,7 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
-                elif (temp_count == 1 and hit_p == "PAWN" and self.parent.forward != hit_c):
+                elif (temp_count == 1 and (hit_p == "PAWN" or hit_p == "KING") and self.parent.forward != hit_c):
                     print("Pawn Check")
 
         # From diagonal top left check
@@ -744,7 +744,7 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
-                elif (temp_count == 1 and hit_p == "PAWN" and self.parent.forward == hit_c):
+                elif (temp_count == 1 and (hit_p == "PAWN" or hit_p == "KING") and self.parent.forward == hit_c):
                     print("Pawn Check")
 
         # From diagonal bottom right check
@@ -762,6 +762,8 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
+                elif (temp_count == 1 and (hit_p == "PAWN" or hit_p == "KING") and self.parent.forward != hit_c):
+                    print("Pawn Check")
 
         # From diagonal bottom left check
         if king_row > 0 and king_col > 0:
@@ -778,6 +780,8 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
+                elif (temp_count == 1 and (hit_p == "PAWN" or hit_p == "KING") and self.parent.forward != hit_c):
+                    print("Pawn Check")
         # Knight checks
         if self.white == 1:
             temp_c = "WHITE"
