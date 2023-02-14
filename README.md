@@ -1,4 +1,4 @@
-# Kivy Examples
+# Auto-Castle
 
 ## Chessboard TODO:
 - Implement pawn promotion

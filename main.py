@@ -768,6 +768,7 @@ class King(Widget):
 
         # From diagonal bottom right check
         if king_row > 0 and king_col < 7:
+            temp_count = 0
             temp_row = king_row-1
             temp_col = king_col+1
             temp_pos = temp_row*8+temp_col
@@ -786,6 +787,7 @@ class King(Widget):
 
         # From diagonal bottom left check
         if king_row > 0 and king_col > 0:
+            temp_count = 0
             temp_row = king_row-1
             temp_col = king_col-1
             temp_pos = temp_row*8+temp_col
@@ -938,11 +940,18 @@ class Pawn(Widget):
         self.parent.color[self.position_row*8+self.position_col] = "EMPTY"
         self.parent.piece[self.position_row*8+self.position_col] = "EMPTY"
 
+    def promotion(self,row,col):
+        print("promotion detected")
+
     def set(self, row, col):
         if not self.first:
             self.parent.names[self.position_row*8+self.position_col] = "EMPTY"
             self.parent.piece[self.position_row*8+self.position_col] = "EMPTY"
             self.parent.color[self.position_row*8+self.position_col] = "EMPTY"
+
+        # Detect promotion
+        if row == 7 or row == 0:
+            self.promotion(row,col)
 
         if abs(self.position_row - row) == 2:
             self.en_passantable = True
@@ -959,9 +968,9 @@ class Pawn(Widget):
 
         if (self.parent.piece[self.position_row*8+self.position_col]) != "EMPTY":
             self.parent.names[self.position_row*8+self.position_col].makeNotVisible()
-        if (diag_move and self.parent.piece[temp_pos-8] == "PAWN" and self.parent.names[temp_pos-8].en_passantable_move == self.parent.move):
+        if (self.position_row > 0 and diag_move and self.parent.piece[temp_pos-8] == "PAWN" and self.parent.names[temp_pos-8].en_passantable_move == self.parent.move):
             self.parent.names[temp_pos-8].makeNotVisible()
-        if (diag_move and self.parent.piece[temp_pos+8] == "PAWN" and self.parent.names[temp_pos+8].en_passantable_move == self.parent.move):
+        if (self.position_row < 7 and diag_move and self.parent.piece[temp_pos+8] == "PAWN" and self.parent.names[temp_pos+8].en_passantable_move == self.parent.move):
             self.parent.names[temp_pos+8].makeNotVisible()
         self.parent.names[self.position_row*8+self.position_col] = self
         
