@@ -1,6 +1,7 @@
 # Auto-Castle
 
 ## Chessboard TODO:
+- Recreate to allow for programmatic adding of widgets(pieces)
 - Implement pawn promotion
   - need a fancy lil mini gui
 - Check, checkmate, etc

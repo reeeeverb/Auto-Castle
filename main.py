@@ -679,7 +679,7 @@ class King(Widget):
                 temp_pos+=8;
             hit_p = piece[temp_pos]
             hit_c = color[temp_pos]
-            print("From front: ",hit_c, hit_p)
+            #print("From front: ",hit_c, hit_p)
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "ROOK" or hit_p == "QUEEN"):
                     print("In check")
@@ -693,7 +693,7 @@ class King(Widget):
                 temp_pos-=8;
             hit_p = piece[temp_pos]
             hit_c = color[temp_pos]
-            print("From back: ",hit_c, hit_p)
+            #print("From back: ",hit_c, hit_p)
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "ROOK" or hit_p == "QUEEN"):
                     print("In check")
@@ -707,7 +707,7 @@ class King(Widget):
                 temp_pos+=1;
             hit_p = piece[temp_pos]
             hit_c = color[temp_pos]
-            print("From right: ",hit_c, hit_p)
+            #print("From right: ",hit_c, hit_p)
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "ROOK" or hit_p == "QUEEN"):
                     print("In check")
@@ -721,7 +721,7 @@ class King(Widget):
                 temp_pos-=1;
             hit_p = piece[temp_pos]
             hit_c = color[temp_pos]
-            print("From left: ",hit_c, hit_p)
+            #print("From left: ",hit_c, hit_p)
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "ROOK" or hit_p == "QUEEN"):
                     print("In check")
@@ -739,7 +739,7 @@ class King(Widget):
                 temp_count += 1
             hit_p = piece[temp_pos]
             hit_c = color[temp_pos]
-            print("From upper right: ",hit_c, hit_p)
+            #print("From upper right: ",hit_c, hit_p)
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
@@ -759,7 +759,7 @@ class King(Widget):
                 temp_count+=1
             hit_p = piece[temp_pos]
             hit_c = color[temp_pos]
-            print("From upper left: ",hit_c, hit_p)
+            #print("From upper left: ",hit_c, hit_p)
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
@@ -778,7 +778,7 @@ class King(Widget):
                 temp_pos-=7;
             hit_p = piece[temp_pos]
             hit_c = color[temp_pos]
-            print("From lower right: ",hit_c, hit_p)
+            #print("From lower right: ",hit_c, hit_p)
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
@@ -797,7 +797,7 @@ class King(Widget):
                 temp_pos-=9;
             hit_p = piece[temp_pos]
             hit_c = color[temp_pos]
-            print("From lower left: ",hit_c, hit_p)
+            #print("From lower left: ",hit_c, hit_p)
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
@@ -926,6 +926,7 @@ class Pawn(Widget):
     en_passantable = ObjectProperty(False)
     en_passantable_move = -1
     first = True
+    promo_counter = 0
 
     def makeVisible(self):
         self.visible = 1
