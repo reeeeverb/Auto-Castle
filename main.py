@@ -36,7 +36,7 @@ class Chessboard(Widget):
         self.forward = "WHITE"
 
     def on_touch_down(self, touch):
-        self.add_widget(Knight())# Instead add by hand like in line 376?
+        #self.add_widget(Knight())# Instead add by hand like in line 376?
         for child in self.children:
             print("test",child)
         if self.first:
