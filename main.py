@@ -23,9 +23,9 @@ class Chessboard(Widget):
         self.down_square = (0,0)
         self.up_square = (0,0)
         self.names, self.color, self.piece = ["EMPTY"]*64, ["EMPTY"]*64, ["EMPTY"]*64
-        p_size = ObjectProperty(0)
-        x = ObjectProperty()
-        y = ObjectProperty()
+        self.p_size = ObjectProperty(0)
+        self.x = ObjectProperty(0)
+        y = ObjectProperty(0)
         self.marker_present = False
         self.widget_list = []
         self.current_move = "WHITE"
@@ -34,11 +34,19 @@ class Chessboard(Widget):
         self.black_capture = []
         self.move = 0
         self.forward = "WHITE"
+        #self.knight_widget = Image(source='chess-pieces/red-circle.png',pos=(self.x+self.p_size*column,self.y+self.p_size*row),size=(self.p_size,self.p_size))
+
+    def define_pieces(self):
+        size = (self.p_size)
+        print(size)
+        knight_widget = Knight2(p_size=200)
+        return knight_widget
 
     def on_touch_down(self, touch):
-        #self.add_widget(Knight())# Instead add by hand like in line 376?
-        for child in self.children:
-            print("test",child)
+        test = Knight2(p_size=self.p_size)# Instead add by hand like in line 376?
+        self.add_widget(test)
+        test.set(2,2)
+        test.makeVisible()
         if self.first:
             self.first = False
             self.reset_board()
@@ -474,6 +482,50 @@ class Chessboard(Widget):
             self.current_move = "WHITE"
 
 class Knight(Widget):
+    position_row = NumericProperty(-1)
+    position_col = NumericProperty(-1)
+    white = NumericProperty(1)
+    visible = NumericProperty(0)
+    p_size = NumericProperty(0)
+    first = True
+
+    def makeVisible(self):
+        self.visible = 1
+        self.parent.color[self.position_row*8+self.position_col] = "WHITE" if self.white == 1 else "BLACK"
+    
+    def makeNotVisible(self):
+        self.visible = 0
+        if self.parent.color[self.position_row*8+self.position_col] == "WHITE":
+            self.parent.black_capture.append(self.parent.names[self.position_row*8+self.position_col]) 
+        if self.parent.color[self.position_row*8+self.position_col] == "BLACK":
+            self.parent.white_capture.append(self.parent.names[self.position_row*8+self.position_col]) 
+        self.parent.color[self.position_row*8+self.position_col] = "EMPTY"
+        self.parent.piece[self.position_row*8+self.position_col] = "EMPTY"
+
+    def set(self, row, col):
+        if not self.first:
+            self.parent.names[self.position_row*8+self.position_col] = "EMPTY"
+            self.parent.piece[self.position_row*8+self.position_col] = "EMPTY"
+            self.parent.color[self.position_row*8+self.position_col] = "EMPTY"
+
+        self.position_col = col
+        self.position_row = row
+
+        if (self.parent.piece[self.position_row*8+self.position_col]) != "EMPTY":
+            self.parent.names[self.position_row*8+self.position_col].makeNotVisible()
+        
+        temp_pos = self.position_row*8+self.position_col
+
+        self.parent.names[self.position_row*8+self.position_col] = self
+        self.parent.piece[self.position_row*8+self.position_col] = "KNIGHT"
+        self.parent.color[self.position_row*8+self.position_col] = "WHITE" if self.white else "BLACK"
+        self.first = False
+        if self.visible == 1:
+            self.parent.color[row*8+col] = "WHITE" if self.white == 1 else "BLACK"
+            self.parent.piece[row*8+col] = "KNIGHT"
+    pass
+
+class Knight2(Widget):
     position_row = NumericProperty(-1)
     position_col = NumericProperty(-1)
     white = NumericProperty(1)
