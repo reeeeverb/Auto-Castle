@@ -166,7 +166,7 @@
 <Knight2>:
     canvas:
         Rectangle:
-            pos: 0,0
+            pos: self.position_col*self.p_size+self.offset_x, self.position_row*self.p_size+self.offset_y
             size: self.p_size, self.p_size if self.visible == 1 else 0
             source: 'chess-pieces/white/knight1.png' if self.white == 1 else 'chess-pieces/black/knight1.png'
     

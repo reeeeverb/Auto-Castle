@@ -39,11 +39,11 @@ class Chessboard(Widget):
     def define_pieces(self):
         size = (self.p_size)
         print(size)
-        knight_widget = Knight2(p_size=200)
+        knight_widget = Knight2(p_size=200,col=2,row=2,offset_x=20,offset_y=20)
         return knight_widget
 
     def on_touch_down(self, touch):
-        test = Knight2(p_size=self.p_size)# Instead add by hand like in line 376?
+        test = Knight2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1])
         self.add_widget(test)
         test.set(2,2)
         test.makeVisible()
@@ -528,6 +528,8 @@ class Knight(Widget):
 class Knight2(Widget):
     position_row = NumericProperty(-1)
     position_col = NumericProperty(-1)
+    offset_x = NumericProperty(-1)
+    offset_y = NumericProperty(-1)
     white = NumericProperty(1)
     visible = NumericProperty(0)
     p_size = NumericProperty(0)
