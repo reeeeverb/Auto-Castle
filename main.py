@@ -24,7 +24,7 @@ class Chessboard(Widget):
         self.up_square = (0,0)
         self.names, self.color, self.piece = ["EMPTY"]*64, ["EMPTY"]*64, ["EMPTY"]*64
         self.p_size = ObjectProperty(0)
-        self.x = ObjectProperty(0)
+        pos = ObjectProperty()
         y = ObjectProperty(0)
         self.marker_present = False
         self.widget_list = []
