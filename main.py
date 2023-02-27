@@ -36,17 +36,11 @@ class Chessboard(Widget):
         self.forward = "WHITE"
         #self.knight_widget = Image(source='chess-pieces/red-circle.png',pos=(self.x+self.p_size*column,self.y+self.p_size*row),size=(self.p_size,self.p_size))
 
-    def define_pieces(self):
-        size = (self.p_size)
-        print(size)
-        knight_widget = Knight2(p_size=200,col=2,row=2,offset_x=20,offset_y=20)
-        return knight_widget
+    def create_knight_widget(self,input_white=1):
+        temp_knight = Knight2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
+        return temp_knight
 
     def on_touch_down(self, touch):
-        test = Knight2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1])
-        self.add_widget(test)
-        test.set(2,2)
-        test.makeVisible()
         if self.first:
             self.first = False
             self.reset_board()
@@ -388,6 +382,19 @@ class Chessboard(Widget):
 
     def reset_board(self):
         self.current_move = "WHITE"
+
+        w_knight1 = self.create_knight_widget()
+        self.add_widget(w_knight1)
+        w_knight1.set(0,1)
+        w_knight1.makeVisible()
+        w_knight2 = self.create_knight_widget()
+        self.add_widget(w_knight2)
+        w_knight2.set(0,6)
+        w_knight2.makeVisible()
+        #test = Knight2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1])
+        #self.add_widget(test)
+        #test.set(3,3)
+        #test.makeVisible()
         self.parent.w_pawn0.set(1,0)
         self.parent.w_pawn0.makeVisible()
         self.parent.w_pawn1.set(1,1)
@@ -404,11 +411,6 @@ class Chessboard(Widget):
         self.parent.w_pawn6.makeVisible()
         self.parent.w_pawn7.set(1,7)
         self.parent.w_pawn7.makeVisible()
-
-        self.parent.w_knight1.set(0,1)
-        self.parent.w_knight1.makeVisible()
-        self.parent.w_knight2.set(0,6)
-        self.parent.w_knight2.makeVisible()
 
         self.parent.w_bishop1.set(0,2)
         self.parent.w_bishop1.makeVisible()
