@@ -2,23 +2,6 @@
 #:import win kivy.core.window
 
 <ChessGame>:    
-    w_pawn0 : w_pawn0
-    w_pawn1 : w_pawn1
-    w_pawn2 : w_pawn2
-    w_pawn3 : w_pawn3
-    w_pawn4 : w_pawn4
-    w_pawn5 : w_pawn5
-    w_pawn6 : w_pawn6
-    w_pawn7 : w_pawn7
-    b_pawn0 : b_pawn0
-    b_pawn1 : b_pawn1
-    b_pawn2 : b_pawn2
-    b_pawn3 : b_pawn3
-    b_pawn4 : b_pawn4
-    b_pawn5 : b_pawn5
-    b_pawn6 : b_pawn6
-    b_pawn7 : b_pawn7
-
     w_rook1 : w_rook1
     w_rook2 : w_rook2
 
@@ -40,47 +23,6 @@
     Chessboard:
         id: main_board
         center: self.parent.center
-        Pawn:
-            id: w_pawn0
-        Pawn:
-            id: w_pawn1
-        Pawn:
-            id: w_pawn2
-        Pawn:
-            id: w_pawn3
-        Pawn:
-            id: w_pawn4
-        Pawn:
-            id: w_pawn5
-        Pawn:
-            id: w_pawn6
-        Pawn:
-            id: w_pawn7
-        Pawn:
-            id: b_pawn0
-            white: 0
-        Pawn:
-            id: b_pawn1
-            white: 0
-        Pawn:
-            id: b_pawn2
-            white: 0
-        Pawn:
-            id: b_pawn3
-            white: 0
-        Pawn:
-            id: b_pawn4
-            white: 0
-        Pawn:
-            id: b_pawn5
-            white: 0
-        Pawn:
-            id: b_pawn6
-            white: 0
-        Pawn:
-            id: b_pawn7
-            white: 0
-
         Rook:
             id: w_rook1
         Rook:
@@ -114,10 +56,9 @@
             source: 'board2.png'
 
 <Pawn>:
-    p_size : self.parent.width*.125
     canvas:
         Rectangle:
-            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            pos: self.position_col*self.p_size+self.offset_x, self.position_row*self.p_size+self.offset_y
             size: self.p_size, self.p_size if self.visible == 1 else 0
             source: 'chess-pieces/white/pawn.png' if self.white == 1 else 'chess-pieces/black/pawn1.png'
 

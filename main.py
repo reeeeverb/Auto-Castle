@@ -41,8 +41,12 @@ class Chessboard(Widget):
         return temp_knight
 
     def create_bishop_widget(self,input_white=1):
-        temp_knight = Bishop2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
-        return temp_knight
+        temp_bishop = Bishop2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
+        return temp_bishop
+
+    def create_pawn_widget(self,input_white=1):
+        temp_pawn = Pawn(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
+        return temp_pawn
 
     def on_touch_down(self, touch):
         if self.first:
@@ -426,26 +430,86 @@ class Chessboard(Widget):
         self.add_widget(b_bishop2)
         b_bishop2.set(7,5)
         b_bishop2.makeVisible()
-        #test = Knight2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1])
-        #self.add_widget(test)
-        #test.set(3,3)
-        #test.makeVisible()
-        self.parent.w_pawn0.set(1,0)
-        self.parent.w_pawn0.makeVisible()
-        self.parent.w_pawn1.set(1,1)
-        self.parent.w_pawn1.makeVisible()
-        self.parent.w_pawn2.set(1,2)
-        self.parent.w_pawn2.makeVisible()
-        self.parent.w_pawn3.set(1,3)
-        self.parent.w_pawn3.makeVisible()
-        self.parent.w_pawn4.set(1,4)
-        self.parent.w_pawn4.makeVisible()
-        self.parent.w_pawn5.set(1,5)
-        self.parent.w_pawn5.makeVisible()
-        self.parent.w_pawn6.set(1,6)
-        self.parent.w_pawn6.makeVisible()
-        self.parent.w_pawn7.set(1,7)
-        self.parent.w_pawn7.makeVisible()
+
+        w_pawn1 = self.create_pawn_widget()
+        self.add_widget(w_pawn1)
+        w_pawn1.set(1,0)
+        w_pawn1.makeVisible()
+
+        w_pawn2 = self.create_pawn_widget()
+        self.add_widget(w_pawn2)
+        w_pawn2.set(1,1)
+        w_pawn2.makeVisible()
+
+        w_pawn3 = self.create_pawn_widget()
+        self.add_widget(w_pawn3)
+        w_pawn3.set(1,2)
+        w_pawn3.makeVisible()
+
+        w_pawn4 = self.create_pawn_widget()
+        self.add_widget(w_pawn4)
+        w_pawn4.set(1,3)
+        w_pawn4.makeVisible()
+
+        w_pawn5 = self.create_pawn_widget()
+        self.add_widget(w_pawn5)
+        w_pawn5.set(1,4)
+        w_pawn5.makeVisible()
+
+        w_pawn6 = self.create_pawn_widget()
+        self.add_widget(w_pawn6)
+        w_pawn6.set(1,5)
+        w_pawn6.makeVisible()
+
+        w_pawn7 = self.create_pawn_widget()
+        self.add_widget(w_pawn7)
+        w_pawn7.set(1,6)
+        w_pawn7.makeVisible()
+
+        w_pawn8 = self.create_pawn_widget()
+        self.add_widget(w_pawn8)
+        w_pawn8.set(1,7)
+        w_pawn8.makeVisible()
+
+        b_pawn1 = self.create_pawn_widget(0)
+        self.add_widget(b_pawn1)
+        b_pawn1.set(6,0)
+        b_pawn1.makeVisible()
+
+        b_pawn2 = self.create_pawn_widget(0)
+        self.add_widget(b_pawn2)
+        b_pawn2.set(6,1)
+        b_pawn2.makeVisible()
+
+        b_pawn3 = self.create_pawn_widget(0)
+        self.add_widget(b_pawn3)
+        b_pawn3.set(6,2)
+        b_pawn3.makeVisible()
+
+        b_pawn4 = self.create_pawn_widget(0)
+        self.add_widget(b_pawn4)
+        b_pawn4.set(6,3)
+        b_pawn4.makeVisible()
+
+        b_pawn5 = self.create_pawn_widget(0)
+        self.add_widget(b_pawn5)
+        b_pawn5.set(6,4)
+        b_pawn5.makeVisible()
+
+        b_pawn6 = self.create_pawn_widget(0)
+        self.add_widget(b_pawn6)
+        b_pawn6.set(6,5)
+        b_pawn6.makeVisible()
+
+        b_pawn7 = self.create_pawn_widget(0)
+        self.add_widget(b_pawn7)
+        b_pawn7.set(6,6)
+        b_pawn7.makeVisible()
+
+        b_pawn8 = self.create_pawn_widget(0)
+        self.add_widget(b_pawn8)
+        b_pawn8.set(6,7)
+        b_pawn8.makeVisible()
 
 
         self.parent.w_rook1.set(0,0)
@@ -458,23 +522,6 @@ class Chessboard(Widget):
 
         self.parent.w_king1.set(0,4)
         self.parent.w_king1.makeVisible()
-
-        self.parent.b_pawn0.set(6,0)
-        self.parent.b_pawn0.makeVisible()
-        self.parent.b_pawn1.set(6,1)
-        self.parent.b_pawn1.makeVisible()
-        self.parent.b_pawn2.set(6,2)
-        self.parent.b_pawn2.makeVisible()
-        self.parent.b_pawn3.set(6,3)
-        self.parent.b_pawn3.makeVisible()
-        self.parent.b_pawn4.set(6,4)
-        self.parent.b_pawn4.makeVisible()
-        self.parent.b_pawn5.set(6,5)
-        self.parent.b_pawn5.makeVisible()
-        self.parent.b_pawn6.set(6,6)
-        self.parent.b_pawn6.makeVisible()
-        self.parent.b_pawn7.set(6,7)
-        self.parent.b_pawn7.makeVisible()
 
         self.parent.b_rook1.set(7,0)
         self.parent.b_rook1.makeVisible()
@@ -1044,6 +1091,8 @@ class King(Widget):
     pass
 
 class Pawn(Widget):
+    offset_x = NumericProperty(-1)
+    offset_y = NumericProperty(-1)
     position_row = NumericProperty(0)
     position_col = NumericProperty(0)
     white = NumericProperty(1)
