@@ -40,6 +40,10 @@ class Chessboard(Widget):
         temp_knight = Knight2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
         return temp_knight
 
+    def create_bishop_widget(self,input_white=1):
+        temp_knight = Bishop2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
+        return temp_knight
+
     def on_touch_down(self, touch):
         if self.first:
             self.first = False
@@ -387,10 +391,21 @@ class Chessboard(Widget):
         self.add_widget(w_knight1)
         w_knight1.set(0,1)
         w_knight1.makeVisible()
+
         w_knight2 = self.create_knight_widget()
         self.add_widget(w_knight2)
         w_knight2.set(0,6)
         w_knight2.makeVisible()
+
+        w_bishop1 = self.create_bishop_widget()
+        self.add_widget(w_bishop1)
+        w_bishop1.set(0,2)
+        w_bishop1.makeVisible()
+
+        w_bishop2 = self.create_bishop_widget()
+        self.add_widget(w_bishop2)
+        w_bishop2.set(0,5)
+        w_bishop2.makeVisible()
         #test = Knight2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1])
         #self.add_widget(test)
         #test.set(3,3)
@@ -412,10 +427,6 @@ class Chessboard(Widget):
         self.parent.w_pawn7.set(1,7)
         self.parent.w_pawn7.makeVisible()
 
-        self.parent.w_bishop1.set(0,2)
-        self.parent.w_bishop1.makeVisible()
-        self.parent.w_bishop2.set(0,5)
-        self.parent.w_bishop2.makeVisible()
 
         self.parent.w_rook1.set(0,0)
         self.parent.w_rook1.makeVisible()
@@ -574,6 +585,52 @@ class Knight2(Widget):
     pass
 
 class Bishop(Widget):
+    position_row = NumericProperty(-1)
+    position_col = NumericProperty(-1)
+    white = NumericProperty(1)
+    visible = NumericProperty(0)
+    p_size = NumericProperty(0)
+    first = True
+
+    def makeVisible(self):
+        self.visible = 1
+        self.parent.color[self.position_row*8+self.position_col] = "WHITE" if self.white == 1 else "BLACK"
+    
+    def makeNotVisible(self):
+        self.visible = 0
+        if self.parent.color[self.position_row*8+self.position_col] == "WHITE":
+            self.parent.black_capture.append(self.parent.names[self.position_row*8+self.position_col]) 
+        if self.parent.color[self.position_row*8+self.position_col] == "BLACK":
+            self.parent.white_capture.append(self.parent.names[self.position_row*8+self.position_col]) 
+        self.parent.color[self.position_row*8+self.position_col] = "EMPTY"
+        self.parent.piece[self.position_row*8+self.position_col] = "EMPTY"
+
+    def set(self, row, col):
+        if not self.first:
+            self.parent.names[self.position_row*8+self.position_col] = "EMPTY"
+            self.parent.piece[self.position_row*8+self.position_col] = "EMPTY"
+            self.parent.color[self.position_row*8+self.position_col] = "EMPTY"
+
+        self.first = False
+        self.position_col = col
+        self.position_row = row
+
+        if (self.parent.piece[self.position_row*8+self.position_col]) != "EMPTY":
+            self.parent.names[self.position_row*8+self.position_col].makeNotVisible()
+        
+        temp_pos = self.position_row*8+self.position_col
+
+        self.parent.names[self.position_row*8+self.position_col] = self
+        self.parent.piece[self.position_row*8+self.position_col] = "BISHOP"
+        self.parent.color[self.position_row*8+self.position_col] = "WHITE" if self.white else "BLACK"
+        if self.visible == 1:
+            self.parent.color[row*8+col] = "WHITE" if self.white == 1 else "BLACK"
+            self.parent.piece[row*8+col] = "BISHOP"
+    pass
+
+class Bishop2(Widget):
+    offset_x = NumericProperty(-1)
+    offset_y = NumericProperty(-1)
     position_row = NumericProperty(-1)
     position_col = NumericProperty(-1)
     white = NumericProperty(1)

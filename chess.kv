@@ -22,9 +22,6 @@
     b_knight1 : b_knight1
     b_knight2 : b_knight2
 
-    w_bishop1: w_bishop1
-    w_bishop2 : w_bishop2
-
     b_bishop1 : b_bishop1
     b_bishop2 : b_bishop2
 
@@ -98,10 +95,6 @@
             white: 0
 
         Bishop:
-            id: w_bishop1
-        Bishop:
-            id: w_bishop2
-        Bishop:
             id: b_bishop1
             white: 0
         Bishop:
@@ -163,6 +156,12 @@
             size: self.p_size, self.p_size if self.visible == 1 else 0
             source: 'chess-pieces/white/knight1.png' if self.white == 1 else 'chess-pieces/black/knight1.png'
     
+<Bishop2>:
+    canvas:
+        Rectangle:
+            pos: self.position_col*self.p_size+self.offset_x, self.position_row*self.p_size+self.offset_y
+            size: self.p_size, self.p_size if self.visible == 1 else 0
+            source: 'chess-pieces/white/bishop1.png' if self.white == 1 else 'chess-pieces/black/bishop1.png'
 <Bishop>:
     p_size : self.parent.width*.125
     canvas:
