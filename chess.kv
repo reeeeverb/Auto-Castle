@@ -2,12 +2,6 @@
 #:import win kivy.core.window
 
 <ChessGame>:    
-    w_rook1 : w_rook1
-    w_rook2 : w_rook2
-
-    b_rook1 : b_rook1
-    b_rook2 : b_rook2
-
     w_queen1 : w_queen1
 
     b_queen1 : b_queen1
@@ -83,19 +77,11 @@
             pos: self.position_col*self.p_size+self.offset_x, self.position_row*self.p_size+self.offset_y
             size: self.p_size, self.p_size if self.visible == 1 else 0
             source: 'chess-pieces/white/bishop1.png' if self.white == 1 else 'chess-pieces/black/bishop1.png'
-<Bishop>:
-    p_size : self.parent.width*.125
-    canvas:
-        Rectangle:
-            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
-            size: self.p_size, self.p_size if self.visible == 1 else 0
-            source: 'chess-pieces/white/bishop1.png' if self.white == 1 else 'chess-pieces/black/bishop1.png'
 
 <Rook>:
-    p_size : self.parent.width*.125
     canvas:
         Rectangle:
-            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            pos: self.position_col*self.p_size+self.offset_x, self.position_row*self.p_size+self.offset_y
             size: self.p_size, self.p_size if self.visible == 1 else 0
             source: 'chess-pieces/white/rook1.png' if self.white == 1 else 'chess-pieces/black/rook1.png'
 

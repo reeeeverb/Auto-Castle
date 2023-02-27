@@ -48,6 +48,10 @@ class Chessboard(Widget):
         temp_pawn = Pawn(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
         return temp_pawn
 
+    def create_rook_widget(self,input_white=1):
+        temp_rook = Rook(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
+        return temp_rook
+
     def on_touch_down(self, touch):
         if self.first:
             self.first = False
@@ -512,10 +516,15 @@ class Chessboard(Widget):
         b_pawn8.makeVisible()
 
 
-        self.parent.w_rook1.set(0,0)
-        self.parent.w_rook1.makeVisible()
-        self.parent.w_rook2.set(0,7)
-        self.parent.w_rook2.makeVisible()
+        w_rook1 = self.create_rook_widget()
+        self.add_widget(w_rook1)
+        w_rook1.set(0,0)
+        w_rook1.makeVisible()
+
+        w_rook2 = self.create_rook_widget()
+        self.add_widget(w_rook2)
+        w_rook2.set(0,7)
+        w_rook2.makeVisible()
 
         self.parent.w_queen1.set(0,3)
         self.parent.w_queen1.makeVisible()
@@ -523,10 +532,15 @@ class Chessboard(Widget):
         self.parent.w_king1.set(0,4)
         self.parent.w_king1.makeVisible()
 
-        self.parent.b_rook1.set(7,0)
-        self.parent.b_rook1.makeVisible()
-        self.parent.b_rook2.set(7,7)
-        self.parent.b_rook2.makeVisible()
+        b_rook1 = self.create_rook_widget(0)
+        self.add_widget(b_rook1)
+        b_rook1.set(7,0)
+        b_rook1.makeVisible()
+
+        b_rook2 = self.create_rook_widget(0)
+        self.add_widget(b_rook2)
+        b_rook2.set(7,7)
+        b_rook2.makeVisible()
 
         self.parent.b_queen1.set(7,3)
         self.parent.b_queen1.makeVisible()
@@ -732,6 +746,8 @@ class Bishop2(Widget):
     pass
 
 class Rook(Widget):
+    offset_x = NumericProperty(-1)
+    offset_y = NumericProperty(-1)
     position_row = NumericProperty(-1)
     position_col = NumericProperty(-1)
     white = NumericProperty(1)
