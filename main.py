@@ -397,6 +397,16 @@ class Chessboard(Widget):
         w_knight2.set(0,6)
         w_knight2.makeVisible()
 
+        b_knight1 = self.create_knight_widget(0)
+        self.add_widget(b_knight1)
+        b_knight1.set(7,1)
+        b_knight1.makeVisible()
+
+        b_knight2 = self.create_knight_widget(0)
+        self.add_widget(b_knight2)
+        b_knight2.set(7,6)
+        b_knight2.makeVisible()
+
         w_bishop1 = self.create_bishop_widget()
         self.add_widget(w_bishop1)
         w_bishop1.set(0,2)
@@ -406,6 +416,16 @@ class Chessboard(Widget):
         self.add_widget(w_bishop2)
         w_bishop2.set(0,5)
         w_bishop2.makeVisible()
+
+        b_bishop1 = self.create_bishop_widget(0)
+        self.add_widget(b_bishop1)
+        b_bishop1.set(7,2)
+        b_bishop1.makeVisible()
+
+        b_bishop2 = self.create_bishop_widget(0)
+        self.add_widget(b_bishop2)
+        b_bishop2.set(7,5)
+        b_bishop2.makeVisible()
         #test = Knight2(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1])
         #self.add_widget(test)
         #test.set(3,3)
@@ -455,16 +475,6 @@ class Chessboard(Widget):
         self.parent.b_pawn6.makeVisible()
         self.parent.b_pawn7.set(6,7)
         self.parent.b_pawn7.makeVisible()
-
-        self.parent.b_knight1.set(7,1)
-        self.parent.b_knight1.makeVisible()
-        self.parent.b_knight2.set(7,6)
-        self.parent.b_knight2.makeVisible()
-
-        self.parent.b_bishop1.set(7,2)
-        self.parent.b_bishop1.makeVisible()
-        self.parent.b_bishop2.set(7,5)
-        self.parent.b_bishop2.makeVisible()
 
         self.parent.b_rook1.set(7,0)
         self.parent.b_rook1.makeVisible()
