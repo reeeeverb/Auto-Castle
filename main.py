@@ -52,6 +52,10 @@ class Chessboard(Widget):
         temp_rook = Rook(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
         return temp_rook
 
+    def create_queen_widget(self,input_white=1):
+        temp_queen = Queen(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
+        return temp_queen
+
     def on_touch_down(self, touch):
         if self.first:
             self.first = False
@@ -526,8 +530,10 @@ class Chessboard(Widget):
         w_rook2.set(0,7)
         w_rook2.makeVisible()
 
-        self.parent.w_queen1.set(0,3)
-        self.parent.w_queen1.makeVisible()
+        w_queen1 = self.create_queen_widget()
+        self.add_widget(w_queen1)
+        w_queen1.set(0,3)
+        w_queen1.makeVisible()
 
         self.parent.w_king1.set(0,4)
         self.parent.w_king1.makeVisible()
@@ -542,8 +548,10 @@ class Chessboard(Widget):
         b_rook2.set(7,7)
         b_rook2.makeVisible()
 
-        self.parent.b_queen1.set(7,3)
-        self.parent.b_queen1.makeVisible()
+        b_queen1 = self.create_queen_widget(0)
+        self.add_widget(b_queen1)
+        b_queen1.set(7,3)
+        b_queen1.makeVisible()
 
         self.parent.b_king1.set(7,4)
         self.parent.b_king1.makeVisible()
@@ -798,6 +806,8 @@ class Rook(Widget):
     pass
 
 class Queen(Widget):
+    offset_x = NumericProperty(-1)
+    offset_y = NumericProperty(-1)
     position_row = NumericProperty(-1)
     position_col = NumericProperty(-1)
     white = NumericProperty(1)
