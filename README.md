@@ -2,7 +2,8 @@
 test
 
 ## Chessboard TODO:
-- Recreate to allow for programmatic adding of widgets(pieces)
+- programatically implement pawns, kings, queens and rooks
+  - all black pieces
 - Implement pawn promotion
   - need a fancy lil mini gui
 - Check, checkmate, etc
