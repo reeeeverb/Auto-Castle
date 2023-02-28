@@ -2,14 +2,6 @@
 #:import win kivy.core.window
 
 <ChessGame>:    
-    w_queen1 : w_queen1
-
-    b_queen1 : b_queen1
-
-    w_king1 : w_king1
-
-    b_king1 : b_king1
-
     s_width : win.Window.width
     s_height : win.Window.height
     p_size: win.Window.width*.125
@@ -17,28 +9,6 @@
     Chessboard:
         id: main_board
         center: self.parent.center
-        Rook:
-            id: w_rook1
-        Rook:
-            id: w_rook2
-        Rook:
-            id: b_rook1
-            white: 0
-        Rook:
-            id: b_rook2
-            white: 0
-
-        Queen:
-            id: w_queen1
-        Queen:
-            id: b_queen1
-            white: 0
-
-        King:
-            id: w_king1
-        King:
-            id: b_king1
-            white: 0
 <Chessboard>:
     p_size: self.width*.125
     size : self.parent.s_height, self.parent.s_height
@@ -86,18 +56,16 @@
             source: 'chess-pieces/white/rook1.png' if self.white == 1 else 'chess-pieces/black/rook1.png'
 
 <Queen>:
-    p_size : self.parent.width*.125
     canvas:
         Rectangle:
-            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            pos: self.position_col*self.p_size+self.offset_x, self.position_row*self.p_size+self.offset_y
             size: self.p_size, self.p_size if self.visible == 1 else 0
             source: 'chess-pieces/white/queen1.png' if self.white == 1 else 'chess-pieces/black/queen1.png'
 
 <King>:
-    p_size : self.parent.width*.125
     canvas:
         Rectangle:
-            pos: self.position_col*.125*self.parent.width+self.parent.x, self.position_row*.125*self.parent.height+self.parent.y
+            pos: self.position_col*self.p_size+self.offset_x, self.position_row*self.p_size+self.offset_y
             size: self.p_size, self.p_size if self.visible == 1 else 0
             source: 'chess-pieces/white/king1.png' if self.white == 1 else 'chess-pieces/black/king1.png'
 

@@ -52,12 +52,24 @@ class Chessboard(Widget):
         temp_rook = Rook(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
         return temp_rook
 
+    def create_queen_widget(self,input_white=1):
+        temp_queen = Queen(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
+        return temp_queen
+
+    def create_king_widget(self,input_white=1):
+        temp_king = King(p_size=self.p_size,position_col=2,position_row=2,offset_x=self.pos[0],offset_y=self.pos[1],white=input_white)
+        return temp_king
+
     def on_touch_down(self, touch):
         if self.first:
             self.first = False
             self.reset_board()
-        self.parent.w_king1.inCheck()
-        self.parent.b_king1.inCheck()
+        #self.children[b_king1].inCheck()
+        #print(self)
+        for child in self.children:
+            if str(type(child)) == "<class '__main__.King'>":
+              child.inCheck()
+        #self.parent.w_king1.inCheck()
         if self.collide_point(*touch.pos):
             xpos = touch.pos[0]-self.pos[0]
             ypos = touch.pos[1]-self.pos[1]
@@ -67,6 +79,7 @@ class Chessboard(Widget):
             ## Testing
 
     def on_touch_up(self, touch):
+        #self.parent.w_king1.inCheck()
         if self.collide_point(*touch.pos):
             xpos = touch.pos[0]-self.pos[0]
             ypos = touch.pos[1]-self.pos[1]
@@ -526,11 +539,15 @@ class Chessboard(Widget):
         w_rook2.set(0,7)
         w_rook2.makeVisible()
 
-        self.parent.w_queen1.set(0,3)
-        self.parent.w_queen1.makeVisible()
+        w_queen1 = self.create_queen_widget()
+        self.add_widget(w_queen1)
+        w_queen1.set(0,3)
+        w_queen1.makeVisible()
 
-        self.parent.w_king1.set(0,4)
-        self.parent.w_king1.makeVisible()
+        w_king1 = self.create_king_widget()
+        self.add_widget(w_king1)
+        w_king1.set(0,4)
+        w_king1.makeVisible()
 
         b_rook1 = self.create_rook_widget(0)
         self.add_widget(b_rook1)
@@ -542,11 +559,15 @@ class Chessboard(Widget):
         b_rook2.set(7,7)
         b_rook2.makeVisible()
 
-        self.parent.b_queen1.set(7,3)
-        self.parent.b_queen1.makeVisible()
+        b_queen1 = self.create_queen_widget(0)
+        self.add_widget(b_queen1)
+        b_queen1.set(7,3)
+        b_queen1.makeVisible()
 
-        self.parent.b_king1.set(7,4)
-        self.parent.b_king1.makeVisible()
+        b_king1 = self.create_king_widget(0)
+        self.add_widget(b_king1)
+        b_king1.set(7,4)
+        b_king1.makeVisible()
 
     def square_pos(self,x,y):
         square_size = self.width/8
@@ -798,6 +819,8 @@ class Rook(Widget):
     pass
 
 class Queen(Widget):
+    offset_x = NumericProperty(-1)
+    offset_y = NumericProperty(-1)
     position_row = NumericProperty(-1)
     position_col = NumericProperty(-1)
     white = NumericProperty(1)
@@ -843,6 +866,8 @@ class Queen(Widget):
     pass
 
 class King(Widget):
+    offset_x = NumericProperty(-1)
+    offset_y = NumericProperty(-1)
     position_row = NumericProperty(-1)
     position_col = NumericProperty(-1)
     white = NumericProperty(1)
