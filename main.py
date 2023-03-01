@@ -34,6 +34,8 @@ class Chessboard(Widget):
         self.black_capture = []
         self.move = 0
         self.forward = "WHITE"
+        self.white_king = None
+        self.black_king = None
         #self.knight_widget = Image(source='chess-pieces/red-circle.png',pos=(self.x+self.p_size*column,self.y+self.p_size*row),size=(self.p_size,self.p_size))
 
     def create_knight_widget(self,input_white=1):
@@ -567,22 +569,19 @@ class Chessboard(Widget):
         b_king1.set(7,4)
         b_king1.makeVisible()
 
+        self.white_king = w_king1
+        self.black_king = b_king1
+
     def square_pos(self,x,y):
         square_size = self.width/8
         return (math.trunc(y/square_size),math.trunc(x/square_size),math.trunc(y/square_size)*8+math.trunc(x/square_size))
 
     def legal_move(self, down, up):
         if self.current_move == self.color[down[2]] and up[2] in self.generate_moves(down):
-          for child in self.children:
-            if child.white == 1: 
-              col = "WHITE" 
-            else:  
-              col = "BLACK"
-            if str(type(child)) == "<class '__main__.King'>":
-              if self.current_move == col:
-                if not child.inCheck():
-                  print("CHECK")
-                  return True;
+          if self.current_move == "WHITE" and not self.white_king.inCheck():
+            return True
+          if self.current_move == "BLACK" and not self.black_king.inCheck():
+            return True
         return False;
 
     def current_move_swap(self):
@@ -1103,6 +1102,7 @@ class King(Widget):
             if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
                 print("Check dectected, knight at ", temp_pos)
                 return True
+        return False
 
     def makeVisible(self):
         self.visible = 1
