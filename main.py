@@ -66,9 +66,9 @@ class Chessboard(Widget):
         if self.first:
             self.first = False
             self.reset_board()
-        #self.children[b_king1].inCheck()
-        #print(self)
-        #self.parent.w_king1.inCheck()
+        temp_board = self.piece.copy()
+        print(temp_board[9],self.piece[9])
+        self.set_board(temp_board)
         if self.collide_point(*touch.pos):
             xpos = touch.pos[0]-self.pos[0]
             ypos = touch.pos[1]-self.pos[1]
@@ -404,6 +404,12 @@ class Chessboard(Widget):
         self.add_widget(self.new_red)
         self.widget_list.append(self.new_red)
         self.marker_present=True
+
+    def set_board(self,piece_places):
+        if self.piece == piece_places:
+          print("DIFFERENCE NOT DETECTED")
+        else:
+          print("DIFFERENCE FOUND")
 
     def reset_board(self):
         self.current_move = "WHITE"
