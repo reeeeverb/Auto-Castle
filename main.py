@@ -66,9 +66,6 @@ class Chessboard(Widget):
             self.reset_board()
         #self.children[b_king1].inCheck()
         #print(self)
-        for child in self.children:
-            if str(type(child)) == "<class '__main__.King'>":
-              child.inCheck()
         #self.parent.w_king1.inCheck()
         if self.collide_point(*touch.pos):
             xpos = touch.pos[0]-self.pos[0]
@@ -89,6 +86,7 @@ class Chessboard(Widget):
             else:
                 self.clear_markers()
                 if self.legal_move(self.down_square, self.up_square):
+                    old_state = self.piece, self.color, self.names
                     current_piece = (self.names[self.down_square[2]])
                     current_piece.set(self.up_square[0],self.up_square[1])
                     self.current_move_swap()
@@ -575,9 +573,17 @@ class Chessboard(Widget):
 
     def legal_move(self, down, up):
         if self.current_move == self.color[down[2]] and up[2] in self.generate_moves(down):
-            return True;
-        else:
-            return False;
+          for child in self.children:
+            if child.white == 1: 
+              col = "WHITE" 
+            else:  
+              col = "BLACK"
+            if str(type(child)) == "<class '__main__.King'>":
+              if self.current_move == col:
+                if not child.inCheck():
+                  print("CHECK")
+                  return True;
+        return False;
 
     def current_move_swap(self):
         self.move += 1
@@ -897,6 +903,7 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "ROOK" or hit_p == "QUEEN"):
                     print("In check")
+                    return True
 
         # From below check
         if king_row > 0:
@@ -911,6 +918,7 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "ROOK" or hit_p == "QUEEN"):
                     print("In check")
+                    return True
 
         # From right check
         if king_col < 7:
@@ -925,6 +933,7 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "ROOK" or hit_p == "QUEEN"):
                     print("In check")
+                    return True
 
         # From left check
         if king_col > 0:
@@ -939,6 +948,7 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "ROOK" or hit_p == "QUEEN"):
                     print("In check")
+                    return True
 
         # From diagonal top right check
         if king_row < 7 and king_col < 7:
@@ -957,8 +967,10 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
+                    return True
                 elif (temp_count == 1 and (hit_p == "PAWN" or hit_p == "KING") and self.parent.forward != hit_c):
                     print("Pawn Check")
+                    return True
 
         # From diagonal top left check
         if king_row < 7 and king_col > 0:
@@ -977,8 +989,10 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
+                    return True
                 elif (temp_count == 1 and (hit_p == "PAWN" or hit_p == "KING") and self.parent.forward == hit_c):
                     print("Pawn Check")
+                    return True
 
         # From diagonal bottom right check
         if king_row > 0 and king_col < 7:
@@ -996,8 +1010,10 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
+                    return True
                 elif (temp_count == 1 and (hit_p == "PAWN" or hit_p == "KING") and self.parent.forward != hit_c):
                     print("Pawn Check")
+                    return True
 
         # From diagonal bottom left check
         if king_row > 0 and king_col > 0:
@@ -1015,8 +1031,10 @@ class King(Widget):
             if (hit_c == "BLACK" and self.white == 1) or (hit_c == "WHITE" and self.white == 0):
                 if (hit_p == "BISHOP" or hit_p == "QUEEN"):
                     print("In check")
+                    return True
                 elif (temp_count == 1 and (hit_p == "PAWN" or hit_p == "KING") and self.parent.forward != hit_c):
                     print("Pawn Check")
+                    return True
         # Knight checks
         if self.white == 1:
             temp_c = "WHITE"
@@ -1028,6 +1046,7 @@ class King(Widget):
             temp_pos = temp_row*8+temp_col
             if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
                 print("Check dectected, knight at ", temp_pos)
+                return True
 
         if king_row < 7 and king_col < 6:
             temp_col=king_col+2
@@ -1035,6 +1054,7 @@ class King(Widget):
             temp_pos = temp_row*8+temp_col
             if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
                 print("Check dectected, knight at ", temp_pos)
+                return True
 
         if king_row > 0 and king_col > 1:
             temp_col=king_col-2
@@ -1042,6 +1062,7 @@ class King(Widget):
             temp_pos = temp_row*8+temp_col
             if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
                 print("Check dectected, knight at ", temp_pos)
+                return True
 
         if king_row > 0 and king_col < 6:
             temp_col=king_col+2
@@ -1049,6 +1070,7 @@ class King(Widget):
             temp_pos = temp_row*8+temp_col
             if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
                 print("Check dectected, knight at ", temp_pos)
+                return True
 
         if king_row > 1 and king_col < 7:
             temp_col=king_col+1
@@ -1056,6 +1078,7 @@ class King(Widget):
             temp_pos = temp_row*8+temp_col
             if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
                 print("Check dectected, knight at ", temp_pos)
+                return True
 
         if king_row > 1 and king_col > 0:
             temp_col=king_col-1
@@ -1063,6 +1086,7 @@ class King(Widget):
             temp_pos = temp_row*8+temp_col
             if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
                 print("Check dectected, knight at ", temp_pos)
+                return True
 
         if king_row < 6 and king_col > 0:
             temp_col=king_col-1
@@ -1070,6 +1094,7 @@ class King(Widget):
             temp_pos = temp_row*8+temp_col
             if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
                 print("Check dectected, knight at ", temp_pos)
+                return True
 
         if king_row < 6 and king_col < 7:
             temp_col=king_col+1
@@ -1077,6 +1102,7 @@ class King(Widget):
             temp_pos = temp_row*8+temp_col
             if piece[temp_pos] == "KNIGHT" and color[temp_pos] != temp_c:
                 print("Check dectected, knight at ", temp_pos)
+                return True
 
     def makeVisible(self):
         self.visible = 1
