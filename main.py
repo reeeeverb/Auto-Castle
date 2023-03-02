@@ -1,4 +1,5 @@
 import math
+import numpy as np
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
@@ -66,9 +67,6 @@ class Chessboard(Widget):
         if self.first:
             self.first = False
             self.reset_board()
-        temp_board = self.piece.copy()
-        print(temp_board[9],self.piece[9])
-        self.set_board(temp_board)
         if self.collide_point(*touch.pos):
             xpos = touch.pos[0]-self.pos[0]
             ypos = touch.pos[1]-self.pos[1]
@@ -408,8 +406,6 @@ class Chessboard(Widget):
     def set_board(self,piece_places):
         if self.piece == piece_places:
           print("DIFFERENCE NOT DETECTED")
-        else:
-          print("DIFFERENCE FOUND")
 
     def reset_board(self):
         self.current_move = "WHITE"
